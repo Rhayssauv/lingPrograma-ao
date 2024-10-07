@@ -68,3 +68,25 @@ val lista = [];
 sumList(lista);
 val lista = [10, 5];
 sumList(lista);
+
+val names = ["Carlos", "Andre", "Joao", "Antonio", "Roberto"];
+
+List.nth(names, 2);
+val x = [(1,"carlos"), (2, "andré")];
+val data = List.nth(x, 1);
+#2 data;
+
+val tuple = (3, "Joao");
+#2 tuple;
+
+(*DATA TYPES*)
+(*Tuples - Coleções ordenadas*)
+val person = ("Wagner", 39, 44, 96, 1.82);
+val (name, age, footSize, weight, height) = person;
+#1 person;
+
+(*Records - Coleções não ordenadas com campos nomeados*)
+type person = {name: string, age: int};
+val xpto = {name = "Bernado", age = 20};
+#name xpto;
+#age xpto;
