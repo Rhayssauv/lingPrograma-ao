@@ -90,3 +90,15 @@ type person = {name: string, age: int};
 val xpto = {name = "Bernado", age = 20};
 #name xpto;
 #age xpto;
+
+(*Questão 1: Implemente uma função recursiva que calcule a potencia de um número por outro (nk)*)
+
+fun pow(base: int, expoente: int): int =
+  if expoente = 0 then 1
+  else base * pow(base, expoente - 1);
+
+pow(7, 3);
+
+(*Questão 2: Crie uma função chamada aplicacaoTripla que receba um funcao f como parametro e um valor x e retorne o resultado de três aplicações da função f sobre o valor x.*)
+fun aplicacaoTripla()
+
