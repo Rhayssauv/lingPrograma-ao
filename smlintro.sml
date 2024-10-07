@@ -1,4 +1,4 @@
-(*comentario*)
+﻿(*comentario*)
 (*Tipos de dados: int, real, char, string*)
 val x = 10;
 val x = 10.5;
