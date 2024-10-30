@@ -115,29 +115,67 @@ quadrado_soma (5, 3);
 4 - CRIE UMA FUNÇÃO CHAMADA REVERTER QUE RECEBA UMA LISTA E RETORNE A LISTA REVERSA.
 *)
 
+(*
+1. <3
+2. <3
+3. <3
+4. <3
+*)
+
 (*1*)
 fun hipotenusa(cat1: real, cat2: real): real =
    Math.sqrt((cat1 * cat1) + (cat2 * cat2));
 
 (*2*)
-fun potencia (x,0) = 1
+fun potencia (x, 0) = 1
   | potencia (x, n) = x * potencia(x, n-1);
 
 potencia (3,0);
 
 (*3*)
 
+fun Soma(lista: int list): int =
+  case lista of 
+    [] => 0
+  | x::xs => x + Soma(xs);
+
+Soma[1, 3, 7];
+
+(*4*)
+
+fun reverte [] = []
+  | reverte (x::xs) = reverte xs @ [x];
+
+fun Reverter [] = []
+  | Reverter (x::xs) = Reverter xs @ [x];
+Reverter [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+(*
+[1, 2, 3]
+[2, 3] @ [1]
+[3] @ [2]
+[] @ [3]
+[3, 2, 1]
+*)
+(*Exercecício: *)
+(*
+1 - Implemente uma função recursiva que calcule a potencia de um número por outro (nk)
+2 - Crie uma função chamada aplicacaoTripla que receba um funcao f como parametro e um valor x e retorne o resultado de três aplicações da função f sobre o valor x.
+3 - Crie uma função "makeMultiplier" que receba um inteiro n e retorne um função que multiplique uma entrada por n
+4 - Crie uma função chamada "sinal" que retorne "positivo", "negativo" ou "zero" dependendo do valor de uma entrada inteira.
+5 - Crie uma função length que calcule o tamanho de uma lista usando casamento de padrões.
+DESAFIO: Dada uma tupla (x,y), escreva uma função chamada "distanciaDaOrigem" que calcule a distancia do ponto x, y para a origem (0,0). fun distanciaDaOrigem(point: real * real): real = ...
+*)
 
 (*
 1. <3
-2.
+2. <3
 3. <3
 4. <3
-5.
+5. <3
 bonus. + || -
 *)
 
-(*Questão 1: Implemente uma função recursiva que calcule a potencia de um número por outro (nk)*)
+(*1*)
 
 fun pow(base: int, expoente: int): int =
   if expoente = 0 then 1
@@ -145,11 +183,15 @@ fun pow(base: int, expoente: int): int =
 
 pow(7, 3);
 
-(*Questão 2: Crie uma função chamada aplicacaoTripla que receba um funcao f como parametro e um valor x e retorne o resultado de três aplicações da função f sobre o valor x.*)
+(*2*)
 
+fun triplaAplicacao(f: int -> int, x: int): int =
+  f(f(f(x)));
 
+fun incremento n = n + 1;
+val resultado = triplaAplicacao (incremento, 2);
 
-(*Questão 3: Crie uma função "makeMultiplier" que receba um inteiro n e retorne um função que multiplique uma entrada por n.*)
+(*3*)
 
 fun makeMultiplier(n: int): int -> int = 
   fn b => n * b;
@@ -157,7 +199,7 @@ fun makeMultiplier(n: int): int -> int =
 val multipliethree = makeMultiplier(3);
 multipliethree 7;
 
-(*Questão 4: Crie uma função chamada "sinal" que retorne "positivo", "negativo" ou "zero" dependendo do valor de uma entrada inteira.*)
+(*4*)
 
 fun sinal(n: int): string =
   if n > 0 then "Positivo"
@@ -167,11 +209,16 @@ sinal ~2;
 sinal 0;
 sinal 4;
 
-(*Questão 5: Crie uma função length que calcule o tamanho de uma lista usando casamento de padrões.*)
+(*5*)
 
+val x = [1,2,3];
 
+fun length [] = 0
+  | length (_ :: xs) = 1 + length xs;
 
-(*DESAFIO: Dada uma tupla (x,y), escreva uma função chamada "distanciaDaOrigem" que calcule a distancia do ponto x, y para a origem (0,0). fun distanciaDaOrigem(point: real * real): real = ...*)
+length x;
+
+(*DESAFIO*)
 
 fun distanciaDaOrigem(a: real, b: real): real =
   Math.sqrt((a * a) + (b * b));
