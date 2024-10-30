@@ -68,4 +68,10 @@ avoh(P1, P2) :- avos(P1, P2), mulher(P1).
  *(x) 3.8. avoh(P1, P2).
 */
 
+/*OPERADORES
+, E
+; OU
+_ DESCONHECIDO(ANONIMO)
+
+*/
 
