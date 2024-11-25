@@ -1,0 +1,56 @@
+/* 7. Defina um predicado remove_duplicates(L, R) que remova elementos duplicados da lista L e retorne a lista R com os elementos únicos. A ordem dos elementos na lista de saída deve ser a mesma da entrada.*/
+
+remove_duplicates(L, R) :-
+    remove_duplicates_helper(L, [], R).
+remove_duplicates_helper([], _, []).
+remove_duplicates_helper([H|T], Seen, [H|R]) :-
+    \+ member(H, Seen),
+    remove_duplicates_helper(T, [H|Seen], R).
+remove_duplicates_helper([H|T], Seen, R) :-
+    member(H, Seen),
+    remove_duplicates_helper(T, Seen, R).
+
+
+
+/* 9. Defina um predicado reverse(L, R) que inverta a lista L e retorne a lista invertida R. O predicado deve funcionar recursivamente.*/
+
+reverse(L, R) :-
+    reverse_helper(L, [], R).
+    reverse_helper([], Acc, Acc).
+reverse_helper([H|T], Acc, R) :-
+    reverse_helper(T, [H|Acc], R).
+
+
+/* 10. Defina um predicado sublist(L, Sub) que seja verdadeiro se Sub for uma sublista de L. Por exemplo, sublist([1, 2, 3, 4], [2, 3]) deve retornar true, enquanto sublist([1, 2, 3], [3, 1]) deve retornar false.*/
+
+sublist(L, Sub) :-
+   append(_, L2, L),
+   append(Sub,_, L2).
+
+
+/* 15. Defina um predicado distancia/3 que determina a distância entre duas cidades de um mapa usando predicados de estrada. A distância será calculada de forma recursiva a partir das cidades conectadas por estradas.*/
+
+
+
+/* 16. Defina os predicados impar/1 e par/1 que verificam se um número é ímpar ou par, respectivamente. Utilize a operação de módulo (mod) para definir essas verificações.*/
+
+impar(X) :-
+    (X mod 2) =:= 1.
+par(X) :-
+    (X mod 2) =:= 0.
+
+/* 18. Defina o predicado inverter/2 que inverte uma lista. Exemplo: inverter([1,2,3], L) deve retornar L = [3,2,1].*/
+
+
+inverter(L, R) :-
+    inverter_helper(L, [], R).
+inverter_helper([], Acc, Acc).
+inverter_helper([H|T], Acc, R) :-
+    inverter_helper(T, [H|Acc], R).
+
+
+/* 23. Defina o predicado movimento_damas/2, que verifica todos os movimentos possíveis de uma peça de dama em um jogo de damas, considerando um tabuleiro 8x8. A peça pode se mover diagonalmente, avançando ou retrocedendo. Exemplo: movimento_damas((3,3), L) deve gerar uma lista de todas as posições para onde a peça pode se mover.*/
+
+movimento_damas
+
+/* 28. Implemente um predicado frase/1 que determine se uma sequência de palavras é uma frase válida de acordo com a gramática definida. A gramática pode ser simples, por exemplo: sujeito-verbo-objeto (exemplo: "o gato comeu a ração"). Defina os predicados sujeito/1, verbo/1 e objeto/1 para classificar as palavras.*/
