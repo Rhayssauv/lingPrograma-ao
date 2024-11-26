@@ -1,4 +1,4 @@
-/* 7. Defina um predicado remove_duplicates(L, R) que remova elementos duplicados da lista L e retorne a lista R com os elementos únicos. A ordem dos elementos na lista de saída deve ser a mesma da entrada.*/
+/* 7. Defina um predicado remove_duplicates(L, R) que remova elementos duplicados da lista L e retorne a lista R com os elementos Ãºnicos. A ordem dos elementos na lista de saÃ­da deve ser a mesma da entrada.*/
 
 remove_duplicates(L, R) :-
     remove_duplicates_helper(L, [], R).
@@ -9,8 +9,6 @@ remove_duplicates_helper([H|T], Seen, [H|R]) :-
 remove_duplicates_helper([H|T], Seen, R) :-
     member(H, Seen),
     remove_duplicates_helper(T, Seen, R).
-
-
 
 /* 9. Defina um predicado reverse(L, R) que inverta a lista L e retorne a lista invertida R. O predicado deve funcionar recursivamente.*/
 
@@ -28,11 +26,23 @@ sublist(L, Sub) :-
    append(Sub,_, L2).
 
 
-/* 15. Defina um predicado distancia/3 que determina a distância entre duas cidades de um mapa usando predicados de estrada. A distância será calculada de forma recursiva a partir das cidades conectadas por estradas.*/
+/* 15. Defina um predicado distancia/3 que determina a distÃ¢ncia entre duas cidades de um mapa usando predicados de estrada. A distÃ¢ncia serÃ¡ calculada de forma recursiva a partir das cidades conectadas por estradas.*/
 
+estrada(cidade1, cidade2, 10).
+estrada(cidade2, cidade3, 20).
+estrada(cidade1, cidade3, 15).
+estrada(cidade3, cidade4, 25).
+estrada(cidade4, cidade5, 30).
 
+distancia(Cidade1, Cidade2, Distancia) :-
+    estrada(Cidade1, Cidade2, Distancia).
+    
+distancia(Cidade1, Cidade2, Distancia) :-
+    estrada(Cidade1, CidadeIntermediaria, D1),
+    distancia(CidadeIntermediaria, Cidade2, D2),
+    Distancia is D1 + D2.
 
-/* 16. Defina os predicados impar/1 e par/1 que verificam se um número é ímpar ou par, respectivamente. Utilize a operação de módulo (mod) para definir essas verificações.*/
+/* 16. Defina os predicados impar/1 e par/1 que verificam se um nÃºmero Ã© Ã­mpar ou par, respectivamente. Utilize a operaÃ§Ã£o de mÃ³dulo (mod) para definir essas verificaÃ§Ãµes.*/
 
 impar(X) :-
     (X mod 2) =:= 1.
@@ -49,8 +59,46 @@ inverter_helper([H|T], Acc, R) :-
     inverter_helper(T, [H|Acc], R).
 
 
-/* 23. Defina o predicado movimento_damas/2, que verifica todos os movimentos possíveis de uma peça de dama em um jogo de damas, considerando um tabuleiro 8x8. A peça pode se mover diagonalmente, avançando ou retrocedendo. Exemplo: movimento_damas((3,3), L) deve gerar uma lista de todas as posições para onde a peça pode se mover.*/
+/* 23. Defina o predicado movimento_damas/2, que verifica todos os movimentos possÃ­veis de uma peÃ§a de dama em um jogo de damas, considerando um tabuleiro 8x8. A peÃ§a pode se mover diagonalmente, avanÃ§ando ou retrocedendo. Exemplo: movimento_damas((3,3), L) deve gerar uma lista de todas as posiÃ§Ãµes para onde a peÃ§a pode se mover.*/
 
-movimento_damas
+posicao_valida((Linha, Coluna)) :-
+    between(1, 8, Linha),
+    between(1, 8, Coluna).
+movimentos_na_direcao((Linha, Coluna), (DeltaLinha, DeltaColuna), Movimentos) :-
+    findall((NovaLinha, NovaColuna),(between(1, 7, Passos),
+            						 NovaLinha is Linha + Passos * DeltaLinha,
+            						 NovaColuna is Coluna + Passos * DeltaColuna,
+            						 posicao_valida((NovaLinha, NovaColuna))),
+        													Movimentos).
+movimento_damas((Linha, Coluna), ListaMovimentos) :-
+    movimentos_na_direcao((Linha, Coluna), (1, 1), Movimentos1),
+    movimentos_na_direcao((Linha, Coluna), (1, -1), Movimentos2),
+    movimentos_na_direcao((Linha, Coluna), (-1, 1), Movimentos3),
+    movimentos_na_direcao((Linha, Coluna), (-1, -1), Movimentos4),
+    append([Movimentos1, Movimentos2, Movimentos3, Movimentos4], ListaMovimentos).
 
-/* 28. Implemente um predicado frase/1 que determine se uma sequência de palavras é uma frase válida de acordo com a gramática definida. A gramática pode ser simples, por exemplo: sujeito-verbo-objeto (exemplo: "o gato comeu a ração"). Defina os predicados sujeito/1, verbo/1 e objeto/1 para classificar as palavras.*/
+
+/* 28. Implemente um predicado frase/1 que determine se uma sequÃªncia de palavras Ã© uma frase vÃ¡lida de acordo com a gramÃ¡tica definida. A gramÃ¡tica pode ser simples, por exemplo: sujeito-verbo-objeto (exemplo: "o gato comeu a raÃ§Ã£o"). Defina os predicados sujeito/1, verbo/1 e objeto/1 para classificar as palavras.*/
+
+sujeito('o gato').
+sujeito('a menina').
+sujeito('o cachorro').
+
+verbo('comeu').
+verbo('viu').
+verbo('pegou').
+
+objeto('a raÃ§Ã£o').
+objeto('a bola').
+objeto('o brinquedo').
+
+frase(Frase) :-
+    atomic_list_concat(Palavras, ' ', Frase),
+    append(SujeitoLista, Resto1, Palavras),
+    append(VerboLista, ObjetoLista, Resto1),
+    atomic_list_concat(SujeitoLista, ' ', Sujeito),
+    atomic_list_concat(VerboLista, ' ', Verbo),
+    atomic_list_concat(ObjetoLista, ' ', Objeto),
+    sujeito(Sujeito),
+    verbo(Verbo),
+    objeto(Objeto).
